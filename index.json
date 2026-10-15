@@ -1,0 +1,53 @@
+{
+  "format": 1,
+  "name": "msm6's plugin repo",
+  "description": "Revenge plugins by msm6",
+  "plugins": {
+    "dev.msm6.experiments1": {
+      "name": "Experimentation 1",
+      "description": "An example Revenge plugin built from the template.",
+      "author": "msm6",
+      "channels": {
+        "latest": "1.0.0"
+      },
+      "versions": {
+        "1.0.0": {
+          "url": "https://martinz64.github.io/revenge-plugins/pool/dev.msm6.experiments1@1.0.0.zip",
+          "sha256": "42883f2f5a82b19ecd23a2af7dc610e816616108481153b2fecf300f40878fc3",
+          "size": 5330,
+          "dependencies": {
+            "revenge.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": "*"
+            }
+          }
+        }
+      }
+    },
+    "dev.msm6.platformindicators.beta": {
+      "name": "PlatformIndicators Beta",
+      "description": "Adds platform indicators (Desktop, Mobile, Web...) to users",
+      "author": "msm6",
+      "channels": {
+        "latest": "0.0.1"
+      },
+      "versions": {
+        "0.0.1": {
+          "url": "https://martinz64.github.io/revenge-plugins/pool/dev.msm6.platformindicators.beta@0.0.1.zip",
+          "sha256": "514c2ad4f89a24524069754fdaf558979e463e4c26108879d2b4d53e2a3af957",
+          "size": 5341,
+          "dependencies": {
+            "revenge.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": "*"
+            }
+          }
+        }
+      }
+    }
+  }
+}
