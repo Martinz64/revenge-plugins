@@ -3,13 +3,15 @@
  */
 
 import { } from "@revenge-mod/discord/modules/main_tabs_v2"
-import { getModules, lookupModules } from "@revenge-mod/modules/finders"
-import { withProps } from "@revenge-mod/modules/finders/filters"
 import { hook } from "./wrapRender"
 import StatusIcons from './StatusIcons'
-import { after, before } from "@revenge-mod/patcher"
-import { View } from "react-native"
 import PresenceUpdatedContainer from "./PresenceUpdatedContainer"
+
+
+
+// CREDITS:
+// hook() function from here:
+// https://github.com/bleelblep/revenge-next-plugins/blob/main/plugins/hide-call-buttons/js/patches/callButtons.ts
 
 
 
@@ -20,8 +22,6 @@ export function getDiscordFinders(): any {
 		(revenge as any)?.everest
 	)
 }
-
-
 
 /**
  * Resolves a module by its recorded source path in Discord's bundle.
@@ -111,48 +111,11 @@ export default plugin({
 	start({cleanup}) {
 		// See `logcat | grep ReactNativeJS` on Android.
 		console.log('[plugin] JS started')
-		window.finders = getDiscordFinders()
-		window.wp = withProps
-		window.lm = lookupModules
-		//window.nnn = BundleUpdaterManager.reload
-
-
-		/*function cleanDM(ret:any): any{
-			
-
-			try{
-
-				let elementWithRecipients = find(ret, m => m?.props?.recipients)
-				let userId = elementWithRecipients?.props?.recipients?.[0]
-				
-
-				let found = find(ret, m => m?.props?.children?.some?.(h => h?.props?.ellipsizeMode))
-				found.props.children.push(
-					<>
-					<StatusIcons userId={userId}/>
-					</>
-				)
-			} catch(e){
-				console.log("ere",e)
-			}
-			return ret
-		}
-		hook(
-			'modules/main_tabs_v2/native/tabs/messages/items/channel/MessagesItemChannelContent.tsx',
-			'dm channel',
-			ret => cleanDM(ret),
-		)*/
-
 
 		function patchUsernameWithEffects(res: any): any{
-			window.shdh6696 = res
 			const original = res;
 			if(res?.props?.style?.__platformindicators_userId){
 				const userId = res.props.style.__platformindicators_userId;
-				/*return <Design.Stack direction="horizontal">
-					{original}
-					<StatusIcons userId={userId}/>
-				</Design.Stack>*/
 				return <View style={{
 					display: "flex",
 					flexDirection: "row",
@@ -176,14 +139,8 @@ export default plugin({
 
 
 		function patchUsernameWithEffects2(res: any): any{
-			window.shdh6767 = res
+			//window.shdh6767 = res
 			const original = res;
-			//return <StatusIcons userId="{original.props.userId}"/>
-			/*return <Design.Stack direction="horizontal">
-				{original}
-				<StatusIcons userId="{original.props.userId}"/>
-			</Design.Stack>*/
-			//return res
 			if(!res) return res;
 			if(!res[0]) return res;
 			if(!res[0].userId) return res;
@@ -199,224 +156,9 @@ export default plugin({
 			true,
 			ret => patchUsernameWithEffects2(ret),
 		)
-		
-		getModules(withProps('renderChannelTitle'), ChannelRenderings => {
-				cleanup(
-					/*after(ChannelRenderings, 'renderChannelTitle', res => {
-						window.shdh22 = res
-						const original = res
-
-						//this is a better solution but i hate dealing with texts
-						//might revisit later
-						/*res.props.title = <View style={{
-							display: "flex",
-							flexDirection: "row",
-							alignContent: "center",
-							justifyContent: "flex-start"
-						}}>
-							<Text>{original.title}</Text>
-							<StatusIcons userId={original.props.userId}/>
-
-						</View>*/
-						/*return <View style={{
-							display: "flex",
-							flexDirection: "row",
-							alignContent: "center",
-							justifyContent: "flex-start"
-						}}>
-							{original}
-							<StatusIcons userId={original.props.userId}/>
-						</View>*//*
-						return res;
-			
-					}),*/
-
-					before(ChannelRenderings, 'renderChannelTitle', args => {
-						window.shdh223 = args
-						const original = args
-
-						//this is a better solution but i hate dealing with texts
-						//might revisit later
-						/*res.props.title = <View style={{
-							display: "flex",
-							flexDirection: "row",
-							alignContent: "center",
-							justifyContent: "flex-start"
-						}}>
-							<Text>{original.title}</Text>
-							<StatusIcons userId={original.props.userId}/>
-
-						</View>*/
-						/*return <View style={{
-							display: "flex",
-							flexDirection: "row",
-							alignContent: "center",
-							justifyContent: "flex-start"
-						}}>
-							{original}
-							<StatusIcons userId={original.props.userId}/>
-						</View>*/
-						return args;
-			
-					})
-				)
-		})
-
-
-		/*getModules(withProps('Icon'), IconHolder => {
-				cleanup(
-					after(IconHolder, 'Icon', res => {
-						window.shdh23 = res
-						//const original = res.props.children
-						//return <StatusIcons userId="{original.props.userId}"/>
-						return <View style={{
-							width:16,
-							height: 16,
-							backgroundColor: "#ff0000"
-						}}></View>
-					})
-				)
-		})*/
-
-		/*getModules(withProps('renderTitleWrapper'), ChannelRenderings => {
-				cleanup(
-					after(ChannelRenderings, 'renderTitleWrapper', res => {
-						window.shdh23 = res
-						const original = res.props.children
-
-						//this is a better solution but i hate dealing with texts
-						//might revisit later
-						/*res.props.title = <View style={{
-							display: "flex",
-							flexDirection: "row",
-							alignContent: "center",
-							justifyContent: "flex-start"
-						}}>
-							<Text>{original.title}</Text>
-							<StatusIcons userId={original.props.userId}/>
-
-						</View>*/
-						/*return <View style={{
-							display: "flex",
-							flexDirection: "row",
-							alignContent: "center",
-							justifyContent: "flex-start"
-						}}>
-							{original}
-							<StatusIcons userId="{original.props.userId}"/>
-						</View>*//*
-
-						res.props.children = <View style={{
-							display: "flex",
-							flexDirection: "row",
-							alignContent: "center",
-							justifyContent: "flex-start"
-						}}>
-							{original}
-							<StatusIcons userId="{original.props.userId}"/>
-						</View>
-						return res;
-			
-					}),
-				)
-		})*/
-
-		getModules(withProps('DisplayName'), ChannelRenderings => {
-				cleanup(
-					after(ChannelRenderings, 'DisplayName', res => {
-						window.shdh67 = res
-						const original = res
-
-						/*res.props.title = <View>
-							<text>{original.title}</text>
-							<StatusIcons userId={original.props.userId}/>
-
-						</View>*/
-						/*return <View>
-							{original}
-							<StatusIcons userId={userId}/>
-						</View>*/
-						return res;
-			
-					}),
-				)
-		})
-
-
-		/*cleanup(
-			getModules(withProps('Fragment'), FragmentHolder => {
-				cleanup(
-					after(FragmentHolder, 'Fragment', res => {
-						window.res2 = res
-						return res;
-			
-					}),
-				)
-			}),
-		)*/
-
-		/*function doThing1(mod:any){
-
-
-			console.log(mod)
-			window.mmm = mod
-
-			revenge.patcher.after(mod.MessagesItemChannelFast,"type", (res: any) =>modifyDMChannelItem(res))
-			revenge.patcher.after(mod.MessagesItemChannelFlash,"type", (res: any) =>modifyDMChannelItem(res))
-			revenge.patcher.after(mod.MessagesItemChannelLegend,"type", (res: any) =>modifyDMChannelItem(res))
-
-		}
-		getModuleWithImportedPath("modules/main_tabs_v2/native/tabs/messages/items/MessagesItemChannel.tsx",(mod: any)=>{
-			doThing1(mod)
-		})*/
-
-		function modifyGuildTag(res:any){
-			window.gt = res;
-			console.log("gt", res)
-			return res;
-		}
-
-		function doThingGuildTag(mod: any){
-			revenge.patcher.after(mod,"default", (res: any) =>modifyGuildTag(res))
-		}
-
-		/*getModuleWithImportedPath("modules/guild_tag/native/GuildTag.tsx",(mod: any)=>{
-			doThingGuildTag(mod)
-		})*/
-		
-		/*const mod1 = findByImportedPath('modules/main_tabs_v2/native/tabs/messages/items/channel/MessagesItemChannelBase.tsx')
-		if(mod1) doThingsToDMItem(mod1)
-		const unsub = waitForImportedPath(
-			'modules/main_tabs_v2/native/tabs/messages/items/channel/MessagesItemChannelBase.tsx',
-			m=>{
-				if(m) doThingsToDMItem(m)
-			}
-		)
-		//if(unsub) cleanups.push(unsub)*/
-		
-		window.rev = revenge
-
-		
 	},
-
-
-
-	
 
 	stop() {
 		console.log('[plugin] JS stopped')
 	},
 })
-
-
-function doThingsToDMItem(mod:any){
-
-	window.sn2 = mod
-
-		//revenge.patcher.after(mod,"default", (res: any) =>{
-		//	window.sss = res
-		//})
-
-
-
-}
